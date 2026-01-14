@@ -13,8 +13,7 @@
     "next": "15.3.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sass": "^1.89.2",
-    "inter": "^4.0.0"
+    "sass": "^1.89.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
