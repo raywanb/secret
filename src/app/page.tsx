@@ -592,6 +592,20 @@ const FinalStep = ({
   myAttempts: number;
 }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    setIsMounted(true);
+    
+    const handleResize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   const galleryImages = [
     "/IMG_5195.JPG",
@@ -741,32 +755,34 @@ const FinalStep = ({
       </div>
 
       {/* Floating hearts animation */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ 
-              opacity: 0,
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 50
-            }}
-            animate={{ 
-              opacity: [0, 1, 0],
-              y: -100,
-              x: Math.random() * window.innerWidth
-            }}
-            transition={{
-              duration: 8 + Math.random() * 4,
-              delay: Math.random() * 5,
-              repeat: Infinity,
-              ease: "easeOut"
-            }}
-            className="absolute text-2xl"
-          >
-            {i % 3 === 0 ? '💕' : i % 3 === 1 ? '💖' : '💝'}
-          </motion.div>
-        ))}
-      </div>
+      {isMounted && (
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                opacity: 0,
+                x: Math.random() * windowSize.width,
+                y: windowSize.height + 50
+              }}
+              animate={{ 
+                opacity: [0, 1, 0],
+                y: -100,
+                x: Math.random() * windowSize.width
+              }}
+              transition={{
+                duration: 8 + Math.random() * 4,
+                delay: Math.random() * 5,
+                repeat: Infinity,
+                ease: "easeOut"
+              }}
+              className="absolute text-2xl"
+            >
+              {i % 3 === 0 ? '💕' : i % 3 === 1 ? '💖' : '💝'}
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       {/* Lightbox modal */}
       {expandedImage && (
