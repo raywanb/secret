@@ -8,21 +8,25 @@ const WELCOME_TEXTS = [
   { text: "我為你準備了一個特別的東西👀", fontSize: "text-5xl", duration: 3 }
 ];
 
-const CORRECT_NICKNAME = "豬豬";
+const CORRECT_NICKNAME = "臭猪猪";
 
 const SARAH_HINTS = [
   "你的綽號是什麼？猜一下",
-  "提示：是一個動物",
-  "提示：有一點肥",
-  "提示：長得跟你很像",
-  "提示：有點臭"
+  "是一個動物",
+  "有一點肥",
+  "長得跟你很像",
+  "有點臭"
 ];
 
 // Add your nickname and hints here
 const MY_NICKNAME = "主人"; // Replace with your actual nickname
 const MY_HINTS = [
   "那我的綽號是什麼？",
+  "我聽了就很興奮的綽號",
+  "dad？",
+  "你在床上説的話",
   "提示：開頭是「主」",
+  
 ];
 
 const WelcomeStep = ({ onNext }: { onNext: () => void }) => {
@@ -144,7 +148,7 @@ const NameInputStep = ({
           value={name}
           onChange={(e) => setName(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="輸入綽號..."
+          placeholder="hehehehe..."
           className="px-6 py-4 text-2xl font-inter border-2 rounded-xl focus:outline-none focus:border-blue-500 text-center w-80 text-gray-800 bg-white"
           autoFocus
         />
@@ -284,14 +288,14 @@ const SelectReasonsStep = ({
     );
     
     if (selectedWrong) {
-      setErrorMessage("欸！那個不對吧！🙈");
+      setErrorMessage("不對🙈");
       setShowError(true);
       setTimeout(() => setShowError(false), 2000);
       return;
     }
     
     if (!allCorrectSelected) {
-      setErrorMessage("還有漏掉的喔～再想想！💭");
+      setErrorMessage("在想想！豬豬");
       setShowError(true);
       setTimeout(() => setShowError(false), 2000);
       return;
@@ -364,7 +368,7 @@ const SelectReasonsStep = ({
       {/* Progress - only show after first submit */}
       {hasSubmitted && !gameComplete && (
         <p className="text-gray-600 font-inter text-base">
-          已選：{correctCount} / {correctReasons.length} 個正確理由
+          {correctCount} / {correctReasons.length} correct
         </p>
       )}
       
@@ -721,7 +725,7 @@ const FinalStep = ({
             transition={{ delay: 1.5, duration: 0.8 }}
           >
             <h2 className="font-inter text-3xl text-gray-800 mb-6 text-center">
-              Letter from 你的豬豬
+              My Cringy Little Letter to You...And Our Photos from the Past Year 
             </h2>
             
             <div className="space-y-4 text-gray-700 font-inter leading-relaxed">
@@ -815,7 +819,7 @@ const FinalStep = ({
 };
 
 export default function Home() {
-  const [step, setStep] = useState<'welcome' | 'sarah-name' | 'transition' | 'my-name' | 'memory-game' | 'love-question' | 'final'>('final');
+  const [step, setStep] = useState<'welcome' | 'sarah-name' | 'transition' | 'my-name' | 'memory-game' | 'love-question' | 'final'>('welcome');
   const [userName, setUserName] = useState('');
   const [sarahAttempts, setSarahAttempts] = useState(0);
   const [myName, setMyName] = useState('');
